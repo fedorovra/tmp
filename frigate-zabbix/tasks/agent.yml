@@ -1,0 +1,35 @@
+---
+
+#- name: Install dependencies 
+#  apt:
+#    name: libcurl3
+
+- name: Install zabbix-agent
+  apt:
+#    deb: "https://repo.zabbix.com/zabbix/4.4/{{ ansible_distribution | lower }}/pool/main/z/zabbix-release/zabbix-release_4.4-1%2B{{ ansible_distribution_release | lower }}_all.deb"
+    deb: "https://repo.zabbix.com/zabbix/4.4/{{ ansible_distribution | lower }}/pool/main/z/zabbix/zabbix-agent_4.4.10-1%2B{{ ansible_distribution_release | lower }}_amd64.deb"
+  ignore_errors: true
+
+- name: Create zabbix-agent conf file
+  template:
+    src: zabbix_agentd.conf.j2
+    dest: "/etc/zabbix/zabbix_agentd.conf"
+    owner: root
+    group: root
+    mode: "0644"
+    backup: true
+
+- name: Create zabbix-agent psk file
+  template:
+    src: zabbix_agentd.psk.j2
+    dest: "/etc/zabbix/zabbix_agentd.psk"
+    owner: root
+    group: root
+    mode: "0644"
+    backup: true
+
+- name: Start and enable service
+  service:
+    name: zabbix-agent
+    state: restarted
+    enabled: true

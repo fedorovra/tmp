@@ -1,0 +1,12 @@
+---
+# tasks file for frigate-zabbix
+
+- import_tasks: agent.yml
+  tags:
+    - 'role::frigate-zabbix'
+    - 'role::frigate-zabix:agent'
+
+- import_tasks: server.yml
+  tags:
+    - 'role::frigate-zabbix'
+    - 'role::frigate-zabix:server'

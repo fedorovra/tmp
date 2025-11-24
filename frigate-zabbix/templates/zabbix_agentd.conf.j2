@@ -1,0 +1,13 @@
+ListenIP=0.0.0.0
+ListenPort={{ zabbix_agent_port }}
+PidFile=/var/run/zabbix/zabbix_agentd.pid
+LogFile=/var/log/zabbix/zabbix_agentd.log
+LogFileSize=0
+Server=212.109.194.1,10.8.0.1,176.16.10.1
+Hostname={{ server_name }}
+Include=/etc/zabbix/zabbix_agentd.d/*.conf
+
+TLSConnect=psk
+TLSAccept=psk
+TLSPSKFile=/etc/zabbix/zabbix_agentd.psk
+TLSPSKIdentity={{ zabbix_agent_psk_identity }}
